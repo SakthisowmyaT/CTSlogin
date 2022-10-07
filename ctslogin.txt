@@ -1,0 +1,221 @@
+package signup;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Color;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JSeparator;
+import javax.swing.JPasswordField;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.sql.*;
+import java.lang.*;
+
+public class Login extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField EMAIL;
+	private JPasswordField PASSWORD;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Login frame = new Login();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Login() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 667, 327);
+		contentPane = new JPanel();
+		contentPane.setForeground(new Color(0, 0, 0));
+		contentPane.setBackground(new Color(255, 255, 255));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("LOGIN");
+		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 23));
+		lblNewLabel.setForeground(new Color(53, 147, 202));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(429, 42, 94, 33);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("EMAIL");
+		lblNewLabel_1.setFont(new Font("Trebuchet MS", Font.BOLD, 11));
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_1.setForeground(new Color(53, 147, 202));
+		lblNewLabel_1.setBounds(395, 93, 59, 14);
+		contentPane.add(lblNewLabel_1);
+		
+		EMAIL = new JTextField();
+		EMAIL.setBorder(null);
+		EMAIL.setBounds(486, 86, 137, 14);
+		contentPane.add(EMAIL);
+		EMAIL.setColumns(10);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(568, 105, -78, -5);
+		contentPane.add(separator);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBackground(new Color(0, 0, 0));
+		separator_1.setBounds(486, 105, 86, -5);
+		contentPane.add(separator_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("PASSWORD");
+		lblNewLabel_2.setFont(new Font("Trebuchet MS", Font.BOLD, 11));
+		lblNewLabel_2.setForeground(new Color(53, 147, 202));
+		lblNewLabel_2.setBounds(395, 141, 59, 14);
+		contentPane.add(lblNewLabel_2);
+		
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setBounds(308, 177, -51, -5);
+		contentPane.add(separator_2);
+		
+		JSeparator separator_3 = new JSeparator();
+		separator_3.setBounds(486, 105, 86, -5);
+		contentPane.add(separator_3);
+		
+		JSeparator separator_4 = new JSeparator();
+		separator_4.setBounds(486, 105, 86, -5);
+		contentPane.add(separator_4);
+		
+		JSeparator separator_5 = new JSeparator();
+		separator_5.setBackground(new Color(0, 0, 0));
+		separator_5.setBounds(573, 105, -84, -5);
+		contentPane.add(separator_5);
+		
+		PASSWORD = new JPasswordField();
+		PASSWORD.setBorder(null);
+		PASSWORD.setBounds(486, 141, 137, 14);
+		contentPane.add(PASSWORD);
+		
+		JSeparator separator_6 = new JSeparator();
+		separator_6.setBounds(568, 105, -80, -5);
+		contentPane.add(separator_6);
+		
+		JSeparator separator_7 = new JSeparator();
+		separator_7.setBounds(486, 105, 137, 2);
+		contentPane.add(separator_7);
+		
+		JSeparator separator_8 = new JSeparator();
+		separator_8.setBounds(486, 155, 137, 2);
+		contentPane.add(separator_8);
+		
+		JSeparator separator_9 = new JSeparator();
+		separator_9.setBounds(486, 155, 86, 0);
+		contentPane.add(separator_9);
+		
+		JButton btnNewButton = new JButton("LOGIN");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					Class.forName("com.mysql.jdbc.Driver");
+					Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/boat","root","Sowmi@3012");
+					Statement stmt=con.createStatement(); 
+					String sql="Select * from elcot where EMAIL='"+EMAIL.getText()+"' and PASSWORD='"+PASSWORD.getText()+"'";
+					ResultSet rs = stmt.executeQuery(sql);
+					if(rs.next())
+					{
+						JOptionPane.showMessageDialog(null, "Login Successfully...");
+						FIRSTPAGE a = new FIRSTPAGE();
+						a.show();
+						dispose();
+					}
+					else {
+						JOptionPane.showMessageDialog(null,  "Incorrect email and password");
+					}
+					con.close();
+				}
+				catch(Exception ae)
+				{
+					System.out.print(ae);
+				}
+				/*FIRSTPAGE a = new FIRSTPAGE();
+				a.show();
+				dispose();*/
+
+
+
+				       
+
+
+				  
+
+				
+				
+				
+		
+			}
+		
+		});
+		btnNewButton.setBackground(new Color(53, 147, 202));
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBounds(434, 191, 89, 23);
+		contentPane.add(btnNewButton);
+		
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setIcon(new ImageIcon("C:\\Users\\thiya\\Desktop\\45678.jpg"));
+		lblNewLabel_3.setBounds(10, 11, 328, 266);
+		contentPane.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("");
+		lblNewLabel_4.setIcon(new ImageIcon("C:\\Users\\thiya\\Desktop\\ICON5.png"));
+		lblNewLabel_4.setBounds(359, 83, 35, 33);
+		contentPane.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_5 = new JLabel("");
+		lblNewLabel_5.setIcon(new ImageIcon("C:\\Users\\thiya\\Desktop\\ICON8.png"));
+		lblNewLabel_5.setBounds(359, 127, 35, 33);
+		contentPane.add(lblNewLabel_5);
+		
+		JList list = new JList();
+		list.setBounds(393, 213, 1, 1);
+		contentPane.add(list);
+		
+		JLabel lblNewLabel_6 = new JLabel("");
+		lblNewLabel_6.setIcon(new ImageIcon("C:\\Users\\thiya\\Desktop\\GOOGLE1.png"));
+		lblNewLabel_6.setBounds(429, 225, 25, 33);
+		contentPane.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_8 = new JLabel("");
+		lblNewLabel_8.setBounds(429, 230, 46, 33);
+		contentPane.add(lblNewLabel_8);
+		
+		JLabel lblNewLabel_7 = new JLabel("");
+		lblNewLabel_7.setIcon(new ImageIcon("C:\\Users\\thiya\\Desktop\\twitter1.png"));
+		lblNewLabel_7.setBounds(462, 225, 35, 33);
+		contentPane.add(lblNewLabel_7);
+		
+		JLabel lblNewLabel_9 = new JLabel("\r\n\r\n\r\n");
+		lblNewLabel_9.setIcon(new ImageIcon("C:\\Users\\thiya\\Desktop\\linkedin1.png"));
+		lblNewLabel_9.setBounds(501, 225, 35, 33);
+		contentPane.add(lblNewLabel_9);
+	}
+}
